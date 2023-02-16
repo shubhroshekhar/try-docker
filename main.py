@@ -25,11 +25,16 @@ with open("channels.json", encoding="utf8") as file:
 
 @app.get("/")
 def read_root() -> Response:
-    return Response("The server is running.")
+    return Response("The server is running...")
 
 
 @app.get("/channels/{channel_id}", response_model=Channel)
 def read_item(channel_id: str) -> Channel:
     if channel_id not in channels:
         raise HTTPException(status_code=404, detail="Channel not found")
+    return channels[channel_id]
+
+@app.get("/channels-all/", response_model=Channel)
+def read_item() -> Channel:
+    
     return channels[channel_id]
